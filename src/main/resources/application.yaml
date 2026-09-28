@@ -1,7 +1,8 @@
 spring:
   application:
     name: portfolio
-  datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/portfolio}
-    username: ${DB_USERNAME:marwanhussam}
-    password: ${DB_PASSWORD:}
+  profiles:
+    default: local
+  jpa:
+    hibernate:
+      ddl-auto: update

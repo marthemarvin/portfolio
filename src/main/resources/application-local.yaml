@@ -3,3 +3,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/portfolio
     username: marwanhussam
     password:
+
+admin:
+  email: admin@local
+  password: admin
+
+jwt:
+  secret: local-dev-secret-change-me-at-least-32-chars

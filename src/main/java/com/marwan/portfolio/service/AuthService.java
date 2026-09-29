@@ -1,4 +1,4 @@
-package com.marwan.portfolio;
+package com.marwan.portfolio.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

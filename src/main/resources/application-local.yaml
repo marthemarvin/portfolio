@@ -6,7 +6,7 @@ spring:
 
 admin:
   email: admin@local
-  password: admin
+  password: qu
 
 jwt:
   secret: local-dev-secret-change-me-at-least-32-chars

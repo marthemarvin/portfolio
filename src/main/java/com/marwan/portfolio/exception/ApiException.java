@@ -1,4 +1,4 @@
-package com.marwan.portfolio;
+package com.marwan.portfolio.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

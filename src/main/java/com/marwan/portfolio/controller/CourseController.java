@@ -1,0 +1,24 @@
+package com.marwan.portfolio.controller;
+
+import com.marwan.portfolio.entity.Course;
+import com.marwan.portfolio.service.CourseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/courses")
+@RequiredArgsConstructor
+public class CourseController {
+
+	private final CourseService courseService;
+
+	@GetMapping
+	public List<Course> getActiveCourses() {
+		return courseService.getActiveCourses();
+	}
+
+}

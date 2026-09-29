@@ -1,4 +1,4 @@
-package com.marwan.portfolio;
+package com.marwan.portfolio.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 

@@ -1,4 +1,4 @@
-package com.marwan.portfolio;
+package com.marwan.portfolio.config;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +26,7 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/admin/**").authenticated()
 						.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/**").permitAll()
 						.anyRequest().authenticated())

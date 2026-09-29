@@ -1,5 +1,7 @@
-package com.marwan.portfolio;
+package com.marwan.portfolio.controller;
 
+import com.marwan.portfolio.dto.LoginRequest;
+import com.marwan.portfolio.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

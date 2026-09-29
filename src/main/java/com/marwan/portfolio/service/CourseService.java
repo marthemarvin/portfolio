@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,19 +28,24 @@ public class CourseService {
 	}
 
 	public Course getCourse(Long id) {
-		return courseRepository.findById(id)
-				.orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Course not found"));
+		Optional<Course> course = courseRepository.findById(id);
+
+		if (course.isEmpty()) {
+			throw new ApiException(HttpStatus.NOT_FOUND, "Course not found");
+		}
+
+		return course.get();
 	}
 
 	public Course createCourse(CourseRequest request) {
 		Course course = new Course();
-		applyRequest(course, request);
+		mapRequest(course, request);
 		return courseRepository.save(course);
 	}
 
 	public Course updateCourse(Long id, CourseRequest request) {
 		Course course = getCourse(id);
-		applyRequest(course, request);
+		mapRequest(course, request);
 		return courseRepository.save(course);
 	}
 
@@ -48,7 +54,7 @@ public class CourseService {
 		courseRepository.delete(course);
 	}
 
-	private void applyRequest(Course course, CourseRequest request) {
+	private void mapRequest(Course course, CourseRequest request) {
 		course.setTitle(request.title());
 		course.setDescription(request.description());
 		course.setAuthor(request.author());

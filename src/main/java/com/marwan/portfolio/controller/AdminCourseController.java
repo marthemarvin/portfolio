@@ -35,7 +35,6 @@ public class AdminCourseController {
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
 	public Course createCourse(@RequestBody CourseRequest request) {
 		return courseService.createCourse(request);
 	}
@@ -46,7 +45,6 @@ public class AdminCourseController {
 	}
 
 	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
 	}

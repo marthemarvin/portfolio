@@ -23,6 +23,16 @@ public class CourseService {
 		return courseRepository.findByIsActiveTrue();
 	}
 
+	public Course getActiveCourse(Long id) {
+		Optional<Course> course = courseRepository.findByIdAndIsActiveTrue(id);
+
+		if (course.isEmpty()) {
+			throw new ApiException(HttpStatus.NOT_FOUND, "Course not found");
+		}
+
+		return course.get();
+	}
+
 	public Page<Course> getAllCourses(Pageable pageable) {
 		return courseRepository.findAll(pageable);
 	}

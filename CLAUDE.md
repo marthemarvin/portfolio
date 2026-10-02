@@ -49,7 +49,7 @@ Code is organised by layer under `com.marwan.portfolio`. New classes go in the m
 ## Conventions for new endpoints
 
 - **Layering**: controller → service → repository. Controllers contain no logic — they only receive the request and delegate to one service method. All logic lives in the service.
-- **Public vs admin**: each resource has a public controller (`/api/<resource>`, e.g. `CourseController`) and an admin controller (`/api/admin/<resource>`, e.g. `AdminCourseController`) for CRUD. Public endpoints only expose active records (`isActive = true`) — including get-by-id, which returns 404 for inactive records.
+- **Public vs admin**: each resource has a public controller (`/api/<resource>`, e.g. `CourseController`) and an admin controller (`/api/admin/<resource>`, e.g. `AdminCourseController`) for CRUD. Public endpoints only expose active records (`isActive = true`) — including get-by-id, which returns 404 for inactive records. Public lists can be ordered with a derived query (e.g. `findByIsActiveTrueOrderByStartDateDesc` for experiences, newest first).
 - **Single-record resources** (e.g. `About`): no id in the URL, no list/delete, no `isActive`. The admin controller exposes `GET` and `PUT /api/admin/<resource>`, where `PUT` creates the record the first time and updates it after that; the repository reads it with `findFirstByOrderByIdAsc()`.
 - **Request/response**: request bodies are records in `dto`, mapped onto the entity in the service (so clients can't set `id` or timestamps). Entities are returned directly as responses. `PUT` replaces all fields.
 - **Errors**: throw `ApiException(HttpStatus, message)` from the service. The message reaches the client because `application.yaml` sets `spring.web.error.include-message: always` (Spring Boot 4 name — the old `server.error.include-message` no longer affects the JSON error body). Use explicit `Optional` checks (defensive style), not `orElseThrow`:
@@ -62,7 +62,7 @@ Code is organised by layer under `com.marwan.portfolio`. New classes go in the m
 
   return course.get();
   ```
-- **Status codes**: `POST` returns 201 (`@ResponseStatus(HttpStatus.CREATED)`), `DELETE` returns 204 (`@ResponseStatus(HttpStatus.NO_CONTENT)`).
+- **Status codes**: controllers don't use `@ResponseStatus` — create, update and delete all return the default 200.
 - **Pagination**: "get all" admin endpoints take a `Pageable` and return `Page<T>` (`?page=0&size=10&sort=field,desc`; default size 20).
 - **Entities**: explicit snake_case `@Column(name = ...)` on every field; `@CreationTimestamp`/`@UpdateTimestamp` for `created_at`/`updated_at`; an `is_active` (`Boolean isActive`) column to hide records from the public API. `ddl-auto: update` adds new columns but never alters existing ones (e.g. a column type change must be done manually in SQL).
 
@@ -89,6 +89,6 @@ Field names are the entity's Java field names (e.g. `isActive`), not column name
 Every endpoint that is added or changed must also be added/updated in Postman — collection **"portfolio"** in the "Marwan Hosam's Workspace" workspace (team "Marwan Hosam's Team"). Don't touch the other collections in that workspace.
 
 - The collection has two top-level folders: `local` (`http://localhost:8080`) and `prod` (`https://api.marwankw.com`). Every request is added to **both**.
-- Inside each, requests are grouped into one subfolder per resource (currently `Auth`, `Courses` and `About`). A new resource gets its own subfolder in both `local` and `prod`.
+- Inside each, requests are grouped into one subfolder per resource (currently `Auth`, `Courses`, `About` and `Experiences`). A new resource gets its own subfolder in both `local` and `prod`.
 - Requests that need a token get **"(Admin)"** at the end of the name (e.g. `Get All Courses (Admin)`) and use Bearer auth with `{{token}}`. Public requests have no suffix and no auth.
 - Requests with a body include a `Content-Type: application/json` header and an example JSON body; paginated requests include `page`, `size` and `sort` query params.

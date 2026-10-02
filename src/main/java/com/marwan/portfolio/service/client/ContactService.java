@@ -35,7 +35,6 @@ public class ContactService {
 		contactMessageRepository.save(contactMessage);
 
 		log.info("Sending to {} message {}", mailUsername, contactMessage.getId());
-		sendEmail(contactMessage);
 	}
 
 	// send the actual email

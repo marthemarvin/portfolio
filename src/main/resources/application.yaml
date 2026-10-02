@@ -6,3 +6,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  web:
+    error:
+      include-message: always
+

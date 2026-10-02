@@ -29,6 +29,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/admin/**").authenticated()
 						.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/**").permitAll()
+						.requestMatchers("/error").permitAll()
 						.anyRequest().authenticated())
 				.oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
 		return http.build();

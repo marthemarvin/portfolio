@@ -10,6 +10,8 @@ public record ExperienceRequest(
 		LocalDate endDate,
 		String description,
 		String companyLogo,
+		// base64 data uri, uploaded to cloudinary when sent, otherwise companyLogo is kept
+		String companyLogoBase64,
 		String companyLink,
 		Boolean isActive) {
 }

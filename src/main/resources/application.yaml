@@ -20,3 +20,7 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
+# cloudinary://<api_key>:<api_secret>@<cloud_name>, from the Cloudinary dashboard
+cloudinary:
+  url: ${CLOUDINARY_URL:}
+

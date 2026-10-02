@@ -4,6 +4,7 @@ import com.marwan.portfolio.dto.ExperienceRequest;
 import com.marwan.portfolio.entity.Experience;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.ExperienceRepository;
+import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class AdminExperienceService {
 
 	private final ExperienceRepository experienceRepository;
+
+	private final CloudinaryService cloudinaryService;
 
 	public Page<Experience> getAllExperiences(Pageable pageable) {
 		return experienceRepository.findAll(pageable);
@@ -56,7 +59,7 @@ public class AdminExperienceService {
 		experience.setStartDate(request.startDate());
 		experience.setEndDate(request.endDate());
 		experience.setDescription(request.description());
-		experience.setCompanyLogo(request.companyLogo());
+		experience.setCompanyLogo(cloudinaryService.uploadImageOrKeep(request.companyLogoBase64(), request.companyLogo()));
 		experience.setCompanyLink(request.companyLink());
 		experience.setIsActive(request.isActive());
 	}

@@ -4,6 +4,7 @@ import com.marwan.portfolio.dto.CertificateRequest;
 import com.marwan.portfolio.entity.Certificate;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CertificateRepository;
+import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class AdminCertificateService {
 
 	private final CertificateRepository certificateRepository;
+
+	private final CloudinaryService cloudinaryService;
 
 	public Page<Certificate> getAllCertificates(Pageable pageable) {
 		return certificateRepository.findAll(pageable);
@@ -56,7 +59,7 @@ public class AdminCertificateService {
 		certificate.setExpiryDate(request.expiryDate());
 		certificate.setCredentialId(request.credentialId());
 		certificate.setCredentialUrl(request.credentialUrl());
-		certificate.setImage(request.image());
+		certificate.setImage(cloudinaryService.uploadImageOrKeep(request.imageBase64(), request.image()));
 		certificate.setIsActive(request.isActive());
 	}
 

@@ -4,6 +4,7 @@ import com.marwan.portfolio.dto.SkillRequest;
 import com.marwan.portfolio.entity.Skill;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.SkillRepository;
+import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class AdminSkillService {
 
 	private final SkillRepository skillRepository;
+
+	private final CloudinaryService cloudinaryService;
 
 	public Page<Skill> getAllSkills(Pageable pageable) {
 		return skillRepository.findAll(pageable);
@@ -52,7 +55,7 @@ public class AdminSkillService {
 	private void mapRequest(Skill skill, SkillRequest request) {
 		skill.setName(request.name());
 		skill.setCategory(request.category());
-		skill.setIcon(request.icon());
+		skill.setIcon(cloudinaryService.uploadImageOrKeep(request.iconBase64(), request.icon()));
 		skill.setDisplayOrder(request.displayOrder());
 		skill.setIsActive(request.isActive());
 	}

@@ -4,6 +4,7 @@ import com.marwan.portfolio.dto.AboutRequest;
 import com.marwan.portfolio.entity.About;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.AboutRepository;
+import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import java.util.Optional;
 public class AdminAboutService {
 
 	private final AboutRepository aboutRepository;
+
+	private final CloudinaryService cloudinaryService;
 
 	public About getAbout() {
 		Optional<About> about = aboutRepository.findFirstByOrderByIdAsc();
@@ -43,7 +46,7 @@ public class AdminAboutService {
 		about.setFullName(request.fullName());
 		about.setHeadline(request.headline());
 		about.setBio(request.bio());
-		about.setImage(request.image());
+		about.setImage(cloudinaryService.uploadImageOrKeep(request.imageBase64(), request.image()));
 		about.setLocation(request.location());
 		about.setEmail(request.email());
 		about.setResumeLink(request.resumeLink());

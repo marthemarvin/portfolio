@@ -4,6 +4,7 @@ import com.marwan.portfolio.dto.CourseRequest;
 import com.marwan.portfolio.entity.Course;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CourseRepository;
+import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class AdminCourseService {
 
 	private final CourseRepository courseRepository;
+
+	private final CloudinaryService cloudinaryService;
 
 	public Page<Course> getAllCourses(Pageable pageable) {
 		return courseRepository.findAll(pageable);
@@ -54,7 +57,7 @@ public class AdminCourseService {
 		course.setDescription(request.description());
 		course.setAuthor(request.author());
 		course.setLink(request.link());
-		course.setImage(request.image());
+		course.setImage(cloudinaryService.uploadImageOrKeep(request.imageBase64(), request.image()));
 		course.setIsActive(request.isActive());
 	}
 

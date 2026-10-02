@@ -42,4 +42,8 @@ public class AdminContactMessageService {
 		contactMessageRepository.delete(contactMessage);
 	}
 
+	public long getUnreadMessages() {
+		return contactMessageRepository.countByIsReadFalse();
+	}
+
 }

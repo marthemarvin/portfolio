@@ -39,4 +39,8 @@ public class AdminContactMessageController {
 		adminContactMessageService.deleteMessage(id);
 	}
 
+	@GetMapping
+	public long getUnreadMessages(){
+		return adminContactMessageService.getUnreadMessages();
+	}
 }

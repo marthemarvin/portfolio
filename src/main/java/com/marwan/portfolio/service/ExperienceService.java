@@ -20,8 +20,8 @@ public class ExperienceService {
 
 	private final ExperienceRepository experienceRepository;
 
-	public Page<List<Experience>> getActiveExperiences(int size, int page) {
-		Pageable pageable = PageRequest.of(size,page);
+	public Page<List<Experience>> getActiveExperiences(int page, int size) {
+		Pageable pageable = PageRequest.of(page,size);
 		return experienceRepository.findByIsActiveTrueOrderByStartDateDesc(pageable);
 	}
 

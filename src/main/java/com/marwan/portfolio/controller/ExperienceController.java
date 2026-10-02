@@ -16,8 +16,8 @@ public class ExperienceController {
 	private final ExperienceService experienceService;
 
 	@GetMapping
-	public Page<List<Experience>> getActiveExperiences(@RequestParam int size, @RequestParam int page) {
-		return experienceService.getActiveExperiences(size,page);
+	public Page<List<Experience>> getActiveExperiences(@RequestParam int page, @RequestParam int size) {
+		return experienceService.getActiveExperiences(page,size);
 	}
 
 	@GetMapping("/{id}")

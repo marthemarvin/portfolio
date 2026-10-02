@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 @RequiredArgsConstructor
 public class AuthService {
 
-	private final JwtEncoder jwtEncoder;
+	private final JwtEncoder tokenGenerator;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -44,7 +44,7 @@ public class AuthService {
 
 		// encodes the information into a token
 		JwsHeader header = JwsHeader.with(MacAlgorithm.HS256).build();
-		return jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
+		return tokenGenerator.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
 	}
 
 }

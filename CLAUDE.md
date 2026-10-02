@@ -90,5 +90,5 @@ Every endpoint that is added or changed must also be added/updated in Postman â€
 
 - The collection has two top-level folders: `local` (`http://localhost:8080`) and `prod` (`https://api.marwankw.com`). Every request is added to **both**.
 - Inside each, requests are grouped into one subfolder per resource (currently `Auth`, `Courses`, `About` and `Experiences`). A new resource gets its own subfolder in both `local` and `prod`.
-- Requests that need a token get **"(Admin)"** at the end of the name (e.g. `Get All Courses (Admin)`) and use Bearer auth with `{{token}}`. Public requests have no suffix and no auth.
+- Requests that need a token get **"(Admin)"** at the end of the name (e.g. `Get All Courses (Admin)`) and use Bearer auth with `{{token}}`. Public requests have no suffix and no auth. The `Login` requests have a post-response script that saves the returned JWT into the `token` collection variable, so running Login once authorises every (Admin) request.
 - Requests with a body include a `Content-Type: application/json` header and an example JSON body; paginated requests include `page`, `size` and `sort` query params.

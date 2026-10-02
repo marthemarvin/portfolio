@@ -41,7 +41,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public JwtEncoder jwtEncoder(SecretKey jwtKey) {
+	public JwtEncoder tokenGenerator(SecretKey jwtKey) {
 		return new NimbusJwtEncoder(new ImmutableSecret<>(jwtKey));
 	}
 

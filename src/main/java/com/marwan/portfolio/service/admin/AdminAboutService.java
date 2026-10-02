@@ -1,4 +1,4 @@
-package com.marwan.portfolio.service;
+package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.AboutRequest;
 import com.marwan.portfolio.entity.About;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AboutService {
+public class AdminAboutService {
 
 	private final AboutRepository aboutRepository;
 

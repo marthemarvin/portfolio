@@ -1,8 +1,8 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.ExperienceRequest;
 import com.marwan.portfolio.entity.Experience;
-import com.marwan.portfolio.service.ExperienceService;
+import com.marwan.portfolio.service.admin.AdminExperienceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,31 +20,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AdminExperienceController {
 
-	private final ExperienceService experienceService;
+	private final AdminExperienceService adminExperienceService;
 
 	@GetMapping
 	public Page<Experience> getAllExperiences(Pageable pageable) {
-		return experienceService.getAllExperiences(pageable);
+		return adminExperienceService.getAllExperiences(pageable);
 	}
 
 	@GetMapping("/{id}")
 	public Experience getExperience(@PathVariable Long id) {
-		return experienceService.getExperience(id);
+		return adminExperienceService.getExperience(id);
 	}
 
 	@PostMapping
 	public Experience createExperience(@RequestBody ExperienceRequest request) {
-		return experienceService.createExperience(request);
+		return adminExperienceService.createExperience(request);
 	}
 
 	@PutMapping("/{id}")
 	public Experience updateExperience(@PathVariable Long id, @RequestBody ExperienceRequest request) {
-		return experienceService.updateExperience(id, request);
+		return adminExperienceService.updateExperience(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteExperience(@PathVariable Long id) {
-		experienceService.deleteExperience(id);
+		adminExperienceService.deleteExperience(id);
 	}
 
 }

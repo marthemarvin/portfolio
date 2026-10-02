@@ -1,4 +1,4 @@
-package com.marwan.portfolio.service;
+package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.ExperienceRequest;
 import com.marwan.portfolio.entity.Experience;
@@ -6,34 +6,17 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.ExperienceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ExperienceService {
+public class AdminExperienceService {
 
 	private final ExperienceRepository experienceRepository;
-
-	public Page<List<Experience>> getActiveExperiences(int page, int size) {
-		Pageable pageable = PageRequest.of(page,size);
-		return experienceRepository.findByIsActiveTrueOrderByStartDateDesc(pageable);
-	}
-
-	public Experience getActiveExperience(Long id) {
-		Optional<Experience> experience = experienceRepository.findByIdAndIsActiveTrue(id);
-
-		if (experience.isEmpty()) {
-			throw new ApiException(HttpStatus.NOT_FOUND, "Experience not found");
-		}
-
-		return experience.get();
-	}
 
 	public Page<Experience> getAllExperiences(Pageable pageable) {
 		return experienceRepository.findAll(pageable);

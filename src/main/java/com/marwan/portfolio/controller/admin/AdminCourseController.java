@@ -1,8 +1,8 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.CourseRequest;
 import com.marwan.portfolio.entity.Course;
-import com.marwan.portfolio.service.CourseService;
+import com.marwan.portfolio.service.admin.AdminCourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,31 +22,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AdminCourseController {
 
-	private final CourseService courseService;
+	private final AdminCourseService adminCourseService;
 
 	@GetMapping
 	public Page<Course> getAllCourses(Pageable pageable) {
-		return courseService.getAllCourses(pageable);
+		return adminCourseService.getAllCourses(pageable);
 	}
 
 	@GetMapping("/{id}")
 	public Course getCourse(@PathVariable Long id) {
-		return courseService.getCourse(id);
+		return adminCourseService.getCourse(id);
 	}
 
 	@PostMapping
 	public Course createCourse(@RequestBody CourseRequest request) {
-		return courseService.createCourse(request);
+		return adminCourseService.createCourse(request);
 	}
 
 	@PutMapping("/{id}")
 	public Course updateCourse(@PathVariable Long id, @RequestBody CourseRequest request) {
-		return courseService.updateCourse(id, request);
+		return adminCourseService.updateCourse(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteCourse(@PathVariable Long id) {
-		courseService.deleteCourse(id);
+		adminCourseService.deleteCourse(id);
 	}
 
 }

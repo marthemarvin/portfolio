@@ -1,7 +1,7 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.client;
 
 import com.marwan.portfolio.entity.About;
-import com.marwan.portfolio.service.AboutService;
+import com.marwan.portfolio.service.client.AboutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

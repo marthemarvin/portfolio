@@ -1,4 +1,4 @@
-package com.marwan.portfolio.service;
+package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.exception.ApiException;
 import lombok.RequiredArgsConstructor;

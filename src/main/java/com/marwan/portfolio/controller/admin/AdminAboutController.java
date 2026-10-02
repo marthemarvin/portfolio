@@ -1,8 +1,8 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.AboutRequest;
 import com.marwan.portfolio.entity.About;
-import com.marwan.portfolio.service.AboutService;
+import com.marwan.portfolio.service.admin.AdminAboutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AdminAboutController {
 
-	private final AboutService aboutService;
+	private final AdminAboutService adminAboutService;
 
 	@GetMapping
 	public About getAbout() {
-		return aboutService.getAbout();
+		return adminAboutService.getAbout();
 	}
 
 	@PutMapping
 	public About saveAbout(@RequestBody AboutRequest request) {
-		return aboutService.saveAbout(request);
+		return adminAboutService.saveAbout(request);
 	}
 
 }

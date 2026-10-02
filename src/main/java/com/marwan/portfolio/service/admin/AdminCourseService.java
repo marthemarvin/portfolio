@@ -1,4 +1,4 @@
-package com.marwan.portfolio.service;
+package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.CourseRequest;
 import com.marwan.portfolio.entity.Course;
@@ -10,28 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CourseService {
+public class AdminCourseService {
 
 	private final CourseRepository courseRepository;
-
-	public List<Course> getActiveCourses() {
-		return courseRepository.findByIsActiveTrue();
-	}
-
-	public Course getActiveCourse(Long id) {
-		Optional<Course> course = courseRepository.findByIdAndIsActiveTrue(id);
-
-		if (course.isEmpty()) {
-			throw new ApiException(HttpStatus.NOT_FOUND, "Course not found");
-		}
-
-		return course.get();
-	}
 
 	public Page<Course> getAllCourses(Pageable pageable) {
 		return courseRepository.findAll(pageable);

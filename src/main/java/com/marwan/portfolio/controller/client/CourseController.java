@@ -1,7 +1,7 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.client;
 
 import com.marwan.portfolio.entity.Course;
-import com.marwan.portfolio.service.CourseService;
+import com.marwan.portfolio.service.client.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

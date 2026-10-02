@@ -1,7 +1,7 @@
-package com.marwan.portfolio.controller;
+package com.marwan.portfolio.controller.client;
 
 import com.marwan.portfolio.entity.Experience;
-import com.marwan.portfolio.service.ExperienceService;
+import com.marwan.portfolio.service.client.ExperienceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

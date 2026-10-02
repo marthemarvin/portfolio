@@ -1,5 +1,6 @@
 package com.marwan.portfolio.service;
 
+import com.marwan.portfolio.exception.ApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class AuthService {
 
 		// check if email is == to the env email and pass i set
 		if (!adminEmail.equals(email) || !adminPassword.equals(password)) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+			throw new ApiException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
 		}
 
 		// builds the information

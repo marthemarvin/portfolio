@@ -52,7 +52,7 @@ Code is organised by layer under `com.marwan.portfolio`. New classes go in the m
 - **Public vs admin**: each resource has a public controller (`/api/<resource>`, e.g. `CourseController`) and an admin controller (`/api/admin/<resource>`, e.g. `AdminCourseController`) for CRUD. Public endpoints only expose active records (`isActive = true`) — including get-by-id, which returns 404 for inactive records.
 - **Single-record resources** (e.g. `About`): no id in the URL, no list/delete, no `isActive`. The admin controller exposes `GET` and `PUT /api/admin/<resource>`, where `PUT` creates the record the first time and updates it after that; the repository reads it with `findFirstByOrderByIdAsc()`.
 - **Request/response**: request bodies are records in `dto`, mapped onto the entity in the service (so clients can't set `id` or timestamps). Entities are returned directly as responses. `PUT` replaces all fields.
-- **Errors**: throw `ApiException(HttpStatus, message)` from the service. Use explicit `Optional` checks (defensive style), not `orElseThrow`:
+- **Errors**: throw `ApiException(HttpStatus, message)` from the service. The message reaches the client because `application.yaml` sets `spring.web.error.include-message: always` (Spring Boot 4 name — the old `server.error.include-message` no longer affects the JSON error body). Use explicit `Optional` checks (defensive style), not `orElseThrow`:
   ```java
   Optional<Course> course = courseRepository.findById(id);
 

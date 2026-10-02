@@ -17,8 +17,8 @@ public class ContactController {
 	private final ContactService contactService;
 
 	@PostMapping
-	public void sendMessage(@Valid @RequestBody ContactMessageRequest request) {
-		contactService.sendMessage(request);
+	public void buildEmailRecord(@Valid @RequestBody ContactMessageRequest request) {
+		contactService.sendEmail(request);
 	}
 
 }

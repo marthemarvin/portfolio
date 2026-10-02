@@ -34,6 +34,7 @@ public class ContactService {
 		contactMessage.setIsRead(false);
 		contactMessageRepository.save(contactMessage);
 
+		log.info("Sending to {} message {}", mailUsername, contactMessage.getId());
 		sendEmail(contactMessage);
 	}
 
@@ -55,7 +56,7 @@ public class ContactService {
 		try {
 			mailSender.send(email);
 		} catch (MailException e) {
-			log.warn("Could not send email for contact message {}", contactMessage.getId(), e);
+			log.warn("Could not send email for contact message {}: {}", contactMessage.getId(), e.getMessage(), e);
 		}
 	}
 

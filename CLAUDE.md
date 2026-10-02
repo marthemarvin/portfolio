@@ -91,6 +91,6 @@ Field names are the entity's Java field names (e.g. `isActive`), not column name
 Every endpoint that is added or changed must also be added/updated in Postman — collection **"portfolio"** in the "Marwan Hosam's Workspace" workspace (team "Marwan Hosam's Team"). Don't touch the other collections in that workspace.
 
 - The collection has two top-level folders: `local` (`http://localhost:8080`) and `prod` (`https://api.marwankw.com`). Every request is added to **both**.
-- Inside each, requests are grouped into one subfolder per resource (currently `Auth`, `Courses`, `About`, `Experiences` and `Certificates`). A new resource gets its own subfolder in both `local` and `prod`.
+- Inside each, requests are grouped into one subfolder per resource (currently `Auth`, `Courses`, `About`, `Experiences`, `Certificates` and `Skills`). A new resource gets its own subfolder in both `local` and `prod`.
 - Requests that need a token get **"(Admin)"** at the end of the name (e.g. `Get All Courses (Admin)`) and use Bearer auth with `{{token}}`. Public requests have no suffix and no auth. The `Login` requests have a post-response script that saves the returned JWT into the `token` collection variable, so running Login once authorises every (Admin) request.
 - Requests with a body include a `Content-Type: application/json` header and an example JSON body; paginated requests include `page`, `size` and `sort` query params.

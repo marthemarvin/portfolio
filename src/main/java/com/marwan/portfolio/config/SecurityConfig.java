@@ -28,6 +28,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/admin/**").authenticated()
 						.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
 						.requestMatchers(HttpMethod.GET, "/**").permitAll()
 						.requestMatchers("/error").permitAll()
 						.anyRequest().authenticated())

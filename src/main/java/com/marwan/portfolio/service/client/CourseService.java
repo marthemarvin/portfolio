@@ -4,6 +4,7 @@ import com.marwan.portfolio.entity.Course;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class CourseService {
 
 	private final CourseRepository courseRepository;
 
+	@Cacheable("courses")
 	public List<Course> getActiveCourses() {
 		return courseRepository.findByIsActiveTrue();
 	}

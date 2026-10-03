@@ -4,6 +4,7 @@ import com.marwan.portfolio.entity.Experience;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.ExperienceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ public class ExperienceService {
 
 	private final ExperienceRepository experienceRepository;
 
+	@Cacheable("experiences")
 	public Page<List<Experience>> getActiveExperiences(int page, int size) {
 		Pageable pageable = PageRequest.of(page,size);
 		return experienceRepository.findByIsActiveTrueOrderByStartDateDesc(pageable);

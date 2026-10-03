@@ -4,6 +4,7 @@ import com.marwan.portfolio.entity.Certificate;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CertificateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ public class CertificateService {
 
 	private final CertificateRepository certificateRepository;
 
+	@Cacheable("certificates")
 	public Page<Certificate> getActiveCertificates(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return certificateRepository.findByIsActiveTrueOrderByIssueDateDesc(pageable);

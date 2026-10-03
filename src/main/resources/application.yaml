@@ -20,6 +20,12 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=200,expireAfterWrite=2h
+
+
 # cloudinary://<api_key>:<api_secret>@<cloud_name>, from the Cloudinary dashboard
 cloudinary:
   url: ${CLOUDINARY_URL:}

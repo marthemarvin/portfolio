@@ -4,6 +4,7 @@ import com.marwan.portfolio.entity.About;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.AboutRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class AboutService {
 
 	private final AboutRepository aboutRepository;
 
+	@Cacheable("about")
 	public About getAbout() {
 		Optional<About> about = aboutRepository.findFirstByOrderByIdAsc();
 

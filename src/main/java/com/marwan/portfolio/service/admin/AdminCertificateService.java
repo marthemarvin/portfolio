@@ -36,21 +36,21 @@ public class AdminCertificateService {
 		return certificate.get();
 	}
 
-	@CacheEvict(value = "certificate", allEntries = true)
+	@CacheEvict(value = "certificates", allEntries = true)
 	public Certificate createCertificate(CertificateRequest request) {
 		Certificate certificate = new Certificate();
 		mapRequest(certificate, request);
 		return certificateRepository.save(certificate);
 	}
 
-	@CacheEvict(value = "certificate", allEntries = true)
+	@CacheEvict(value = "certificates", allEntries = true)
 	public Certificate updateCertificate(Long id, CertificateRequest request) {
 		Certificate certificate = getCertificate(id);
 		mapRequest(certificate, request);
 		return certificateRepository.save(certificate);
 	}
 
-	@CacheEvict(value = "certificate", allEntries = true)
+	@CacheEvict(value = "certificates", allEntries = true)
 	public void deleteCertificate(Long id) {
 		Certificate certificate = getCertificate(id);
 		certificateRepository.delete(certificate);

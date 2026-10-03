@@ -6,6 +6,7 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CourseRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,18 +36,21 @@ public class AdminCourseService {
 		return course.get();
 	}
 
+	@CacheEvict(value = "courses", allEntries = true)
 	public Course createCourse(CourseRequest request) {
 		Course course = new Course();
 		mapRequest(course, request);
 		return courseRepository.save(course);
 	}
 
+	@CacheEvict(value = "courses", allEntries = true)
 	public Course updateCourse(Long id, CourseRequest request) {
 		Course course = getCourse(id);
 		mapRequest(course, request);
 		return courseRepository.save(course);
 	}
 
+	@CacheEvict(value = "courses", allEntries = true)
 	public void deleteCourse(Long id) {
 		Course course = getCourse(id);
 		courseRepository.delete(course);

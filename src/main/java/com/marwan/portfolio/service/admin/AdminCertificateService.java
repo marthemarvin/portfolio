@@ -6,6 +6,7 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CertificateRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,18 +36,21 @@ public class AdminCertificateService {
 		return certificate.get();
 	}
 
+	@CacheEvict(value = "certificate", allEntries = true)
 	public Certificate createCertificate(CertificateRequest request) {
 		Certificate certificate = new Certificate();
 		mapRequest(certificate, request);
 		return certificateRepository.save(certificate);
 	}
 
+	@CacheEvict(value = "certificate", allEntries = true)
 	public Certificate updateCertificate(Long id, CertificateRequest request) {
 		Certificate certificate = getCertificate(id);
 		mapRequest(certificate, request);
 		return certificateRepository.save(certificate);
 	}
 
+	@CacheEvict(value = "certificate", allEntries = true)
 	public void deleteCertificate(Long id) {
 		Certificate certificate = getCertificate(id);
 		certificateRepository.delete(certificate);

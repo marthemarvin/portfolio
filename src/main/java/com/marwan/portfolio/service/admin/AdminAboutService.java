@@ -6,6 +6,7 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.AboutRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class AdminAboutService {
 	}
 
 	// creates the about record the first time, updates it after that
+	@CacheEvict(value = "about", allEntries = true)
 	public About saveAbout(AboutRequest request) {
 		Optional<About> existing = aboutRepository.findFirstByOrderByIdAsc();
 

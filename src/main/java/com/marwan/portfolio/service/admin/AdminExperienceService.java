@@ -6,6 +6,7 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.ExperienceRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,18 +36,21 @@ public class AdminExperienceService {
 		return experience.get();
 	}
 
+	@CacheEvict(value = "experiences", allEntries = true)
 	public Experience createExperience(ExperienceRequest request) {
 		Experience experience = new Experience();
 		mapRequest(experience, request);
 		return experienceRepository.save(experience);
 	}
 
+	@CacheEvict(value = "experiences", allEntries = true)
 	public Experience updateExperience(Long id, ExperienceRequest request) {
 		Experience experience = getExperience(id);
 		mapRequest(experience, request);
 		return experienceRepository.save(experience);
 	}
 
+	@CacheEvict(value = "experiences", allEntries = true)
 	public void deleteExperience(Long id) {
 		Experience experience = getExperience(id);
 		experienceRepository.delete(experience);

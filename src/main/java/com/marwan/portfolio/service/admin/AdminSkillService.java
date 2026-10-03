@@ -6,6 +6,7 @@ import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.SkillRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,18 +36,21 @@ public class AdminSkillService {
 		return skill.get();
 	}
 
+	@CacheEvict(value = "skills", allEntries = true)
 	public Skill createSkill(SkillRequest request) {
 		Skill skill = new Skill();
 		mapRequest(skill, request);
 		return skillRepository.save(skill);
 	}
 
+	@CacheEvict(value = "skills", allEntries = true)
 	public Skill updateSkill(Long id, SkillRequest request) {
 		Skill skill = getSkill(id);
 		mapRequest(skill, request);
 		return skillRepository.save(skill);
 	}
 
+	@CacheEvict(value = "skills", allEntries = true)
 	public void deleteSkill(Long id) {
 		Skill skill = getSkill(id);
 		skillRepository.delete(skill);

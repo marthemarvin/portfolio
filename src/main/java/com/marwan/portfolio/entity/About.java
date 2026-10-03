@@ -40,7 +40,7 @@ public class About implements Positionable{
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "projectDescription")
+	@Column(name = "bio", columnDefinition = "TEXT")
 	private String projectDescription;
 
 	@Column(name = "resume_link")

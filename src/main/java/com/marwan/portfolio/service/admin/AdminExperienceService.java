@@ -1,10 +1,13 @@
 package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.ExperienceRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Experience;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.ExperienceRepository;
 import com.marwan.portfolio.service.CloudinaryService;
+import com.marwan.portfolio.service.ReorderService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,8 @@ public class AdminExperienceService {
 	private final ExperienceRepository experienceRepository;
 
 	private final CloudinaryService cloudinaryService;
+
+	private final ReorderService reorderService;
 
 	public Page<Experience> getAllExperiences(Pageable pageable) {
 		return experienceRepository.findAll(pageable);
@@ -54,6 +59,11 @@ public class AdminExperienceService {
 	public void deleteExperience(Long id) {
 		Experience experience = getExperience(id);
 		experienceRepository.delete(experience);
+	}
+
+	@CacheEvict(value = "experiences", allEntries = true)
+	public void reorderExperiences(List<ReorderRequest> items) {
+		reorderService.reorder(experienceRepository, items);
 	}
 
 	private void mapRequest(Experience experience, ExperienceRequest request) {

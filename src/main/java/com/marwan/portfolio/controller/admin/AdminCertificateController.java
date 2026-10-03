@@ -1,8 +1,10 @@
 package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.CertificateRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Certificate;
 import com.marwan.portfolio.service.admin.AdminCertificateService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +42,12 @@ public class AdminCertificateController {
 	@PutMapping("/{id}")
 	public Certificate updateCertificate(@PathVariable Long id, @RequestBody CertificateRequest request) {
 		return adminCertificateService.updateCertificate(id, request);
+	}
+
+	// body: [{ "id": 3, "position": 0 }, { "id": 1, "position": 1 }]
+	@PutMapping("/reorder")
+	public void reorderCertificates(@RequestBody List<ReorderRequest> items) {
+		adminCertificateService.reorderCertificates(items);
 	}
 
 	@DeleteMapping("/{id}")

@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface ExperienceRepository extends JpaRepository<Experience, Long>, JpaSpecificationExecutor<Experience> {
 
-	// newest job first
-	Page<List<Experience>> findByIsActiveTrueOrderByStartDateDesc(Pageable pageable);
+	// in the order set by the reorder endpoint
+	Page<List<Experience>> findByIsActiveTrueOrderByDisplayOrderAsc(Pageable pageable);
 
 	Optional<Experience> findByIdAndIsActiveTrue(Long id);
 

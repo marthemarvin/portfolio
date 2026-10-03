@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+// spring takes this bean and does the work not our service
 @Configuration
 @RequiredArgsConstructor
 public class ApiHitConfig implements WebMvcConfigurer {
@@ -15,8 +16,8 @@ public class ApiHitConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(apiHitInterceptor)
-				.addPathPatterns("/api/**")
-				.excludePathPatterns("/api/admin/**");
+				.addPathPatterns("/api/**") // only add api hits for non admin (client only)
+				.excludePathPatterns("/api/admin/**"); // excludes admin api
 	}
 
 }

@@ -23,7 +23,7 @@ public class ExperienceService {
 	@Cacheable("experiences")
 	public Page<List<Experience>> getActiveExperiences(int page, int size) {
 		Pageable pageable = PageRequest.of(page,size);
-		return experienceRepository.findByIsActiveTrueOrderByStartDateDesc(pageable);
+		return experienceRepository.findByIsActiveTrueOrderByDisplayOrderAsc(pageable);
 	}
 
 	public Experience getActiveExperience(Long id) {

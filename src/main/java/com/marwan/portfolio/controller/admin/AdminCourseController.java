@@ -1,12 +1,13 @@
 package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.CourseRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Course;
 import com.marwan.portfolio.service.admin.AdminCourseService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,11 @@ public class AdminCourseController {
 	@PutMapping("/{id}")
 	public Course updateCourse(@PathVariable Long id, @RequestBody CourseRequest request) {
 		return adminCourseService.updateCourse(id, request);
+	}
+
+	@PutMapping("/reorder")
+	public void reorderCourses(@RequestBody List<ReorderRequest> items) {
+		adminCourseService.reorderCourses(items);
 	}
 
 	@DeleteMapping("/{id}")

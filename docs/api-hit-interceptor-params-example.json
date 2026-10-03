@@ -1,0 +1,68 @@
+{
+  "_note": "Illustrative values of the 4 parameters Spring passes to ApiHitInterceptor.afterCompletion for a public GET /api/courses. These are Java objects, shown as JSON; real objects have more fields. /api/admin/** never reaches the interceptor.",
+
+  "request": {
+    "_type": "HttpServletRequest",
+    "method": "GET",
+    "requestURI": "/api/courses",
+    "queryString": null,
+    "scheme": "https",
+    "serverName": "api.marwankw.com",
+    "remoteAddr": "172.71.150.12",
+    "headers": {
+      "Host": "api.marwankw.com",
+      "Origin": "https://marwankw.com",
+      "Accept": "application/json",
+      "User-Agent": "Mozilla/5.0 (Macintosh; ...) Chrome/129.0",
+      "CF-Connecting-IP": "37.39.12.88"
+    },
+    "attributes": {
+      "org.springframework.web.servlet.HandlerMapping.bestMatchingPattern": "/api/courses",
+      "org.springframework.web.servlet.HandlerMapping.pathWithinHandlerMapping": "/api/courses",
+      "org.springframework.web.servlet.HandlerMapping.uriTemplateVariables": {}
+    },
+    "_notes": [
+      "bestMatchingPattern is what the interceptor reads via HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE",
+      "for /api/courses/3 it would be \"/api/courses/{id}\" and uriTemplateVariables would be {\"id\": \"3\"}",
+      "remoteAddr is Cloudflare's address; the visitor's real IP is in the CF-Connecting-IP header"
+    ]
+  },
+
+  "response": {
+    "_type": "HttpServletResponse",
+    "status": 200,
+    "contentType": "application/json",
+    "committed": true,
+    "headers": {
+      "Content-Type": "application/json",
+      "Vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin": "https://marwankw.com"
+    },
+    "_notes": [
+      "committed: true means the response is already sent, so afterCompletion can't change it"
+    ]
+  },
+
+  "handler": {
+    "_type": "HandlerMethod",
+    "bean": "CourseController@4f2a1b",
+    "beanType": "com.marwan.portfolio.controller.client.CourseController",
+    "method": "public java.util.List<Course> getActiveCourses()",
+    "methodName": "getActiveCourses",
+    "returnType": "java.util.List<com.marwan.portfolio.entity.Course>",
+    "parameters": [],
+    "_notes": [
+      "this is why `handler instanceof HandlerMethod` is true; an unknown URL gets the static resource handler instead and the interceptor returns early"
+    ]
+  },
+
+  "ex": null,
+  "_ex_note": "null because the request succeeded; even an ApiException (e.g. 404) is usually already turned into an error response, so ex stays null and response.status shows the error",
+
+  "result": {
+    "_note": "what the interceptor actually uses from all of the above, and the row it writes",
+    "endpoint": "/api/courses",
+    "method": "GET",
+    "api_hits_row": "GET /api/courses -> hit_count + 1"
+  }
+}

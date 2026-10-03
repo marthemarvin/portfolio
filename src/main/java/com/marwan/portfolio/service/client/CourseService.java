@@ -19,7 +19,7 @@ public class CourseService {
 
 	@Cacheable("courses")
 	public List<Course> getActiveCourses() {
-		return courseRepository.findByIsActiveTrue();
+		return courseRepository.findByIsActiveTrueOrderByDisplayOrderAsc();
 	}
 
 	public Course getActiveCourse(Long id) {

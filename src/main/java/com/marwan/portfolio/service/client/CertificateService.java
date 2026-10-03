@@ -22,7 +22,7 @@ public class CertificateService {
 	@Cacheable("certificates")
 	public Page<Certificate> getActiveCertificates(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return certificateRepository.findByIsActiveTrueOrderByIssueDateDesc(pageable);
+		return certificateRepository.findByIsActiveTrueOrderByDisplayOrderAsc(pageable);
 	}
 
 	public Certificate getActiveCertificate(Long id) {

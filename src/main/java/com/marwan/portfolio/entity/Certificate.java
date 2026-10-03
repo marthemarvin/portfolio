@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "certificates")
-public class Certificate {
+public class Certificate implements Positionable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +48,10 @@ public class Certificate {
 
 	@Column(name = "is_active")
 	private Boolean isActive;
+
+	// set by the reorder endpoint, public lists sort by it
+	@Column(name = "display_order")
+	private Integer displayOrder;
 
 	@CreationTimestamp
 	@Column(name = "created_at")

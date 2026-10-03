@@ -1,10 +1,13 @@
 package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.CertificateRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Certificate;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CertificateRepository;
 import com.marwan.portfolio.service.CloudinaryService;
+import com.marwan.portfolio.service.ReorderService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,8 @@ public class AdminCertificateService {
 	private final CertificateRepository certificateRepository;
 
 	private final CloudinaryService cloudinaryService;
+
+	private final ReorderService reorderService;
 
 	public Page<Certificate> getAllCertificates(Pageable pageable) {
 		return certificateRepository.findAll(pageable);
@@ -54,6 +59,11 @@ public class AdminCertificateService {
 	public void deleteCertificate(Long id) {
 		Certificate certificate = getCertificate(id);
 		certificateRepository.delete(certificate);
+	}
+
+	@CacheEvict(value = "certificates", allEntries = true)
+	public void reorderCertificates(List<ReorderRequest> items) {
+		reorderService.reorder(certificateRepository, items);
 	}
 
 	private void mapRequest(Certificate certificate, CertificateRequest request) {

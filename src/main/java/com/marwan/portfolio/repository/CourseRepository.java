@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Long>, JpaSpecificationExecutor<Course> {
 
-	List<Course> findByIsActiveTrue();
+	List<Course> findByIsActiveTrueOrderByDisplayOrderAsc();
 
 	Optional<Course> findByIdAndIsActiveTrue(Long id);
 

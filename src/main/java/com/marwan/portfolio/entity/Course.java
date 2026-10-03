@@ -15,7 +15,7 @@ import java.time.Instant;
 @Data
 @Entity
 @Table(name = "courses")
-public class Course {
+public class Course implements Positionable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +39,10 @@ public class Course {
 
 	@Column(name = "is_active")
 	private Boolean isActive;
+
+	// set by the reorder endpoint, public lists sort by it
+	@Column(name = "display_order")
+	private Integer displayOrder;
 
 	@CreationTimestamp
 	@Column(name = "created_at")

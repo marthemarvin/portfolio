@@ -1,15 +1,18 @@
 package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.AboutRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.About;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.AboutRepository;
 import com.marwan.portfolio.service.CloudinaryService;
+import com.marwan.portfolio.service.ReorderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,8 +20,8 @@ import java.util.Optional;
 public class AdminAboutService {
 
 	private final AboutRepository aboutRepository;
-
 	private final CloudinaryService cloudinaryService;
+	private final ReorderService reorderService;
 
 	public About getAbout() {
 		Optional<About> about = aboutRepository.findFirstByOrderByIdAsc();
@@ -56,4 +59,9 @@ public class AdminAboutService {
 		about.setLinkedinLink(request.linkedinLink());
 	}
 
+	@CacheEvict(value = "about", allEntries = true)
+    public void reorder(List<ReorderRequest> incomingReordering) {
+		reorderService.reorder(aboutRepository,incomingReordering);
+
+    }
 }

@@ -15,7 +15,7 @@ import java.time.Instant;
 @Data
 @Entity
 @Table(name = "about")
-public class About {
+public class About implements Positionable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +48,9 @@ public class About {
 
 	@Column(name = "linkedin_link")
 	private String linkedinLink;
+
+	@Column(name = "display_order")
+	private Integer displayOrder;
 
 	@CreationTimestamp
 	@Column(name = "created_at")

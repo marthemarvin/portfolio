@@ -1,8 +1,10 @@
 package com.marwan.portfolio.controller.admin;
 
 import com.marwan.portfolio.dto.ExperienceRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Experience;
 import com.marwan.portfolio.service.admin.AdminExperienceService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +42,11 @@ public class AdminExperienceController {
 	@PutMapping("/{id}")
 	public Experience updateExperience(@PathVariable Long id, @RequestBody ExperienceRequest request) {
 		return adminExperienceService.updateExperience(id, request);
+	}
+
+	@PutMapping("/reorder")
+	public void reorderExperiences(@RequestBody List<ReorderRequest> items) {
+		adminExperienceService.reorderExperiences(items);
 	}
 
 	@DeleteMapping("/{id}")

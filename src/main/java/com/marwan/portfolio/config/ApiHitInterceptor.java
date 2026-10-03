@@ -15,7 +15,8 @@ public class ApiHitInterceptor implements HandlerInterceptor {
 
 	private final ApiHitService apiHitService;
 
-	// spring calls this after every request that ApiHitConfig registers it for
+	// spring calls this after every request
+	// handler is whatever Spring chose to handle the request. For your endpoints, that's a specific method on one of your controllers.
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 

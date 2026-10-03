@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "experiences")
-public class Experience {
+public class Experience implements Positionable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +50,10 @@ public class Experience {
 
 	@Column(name = "is_active")
 	private Boolean isActive;
+
+	// set by the reorder endpoint, public lists sort by it
+	@Column(name = "display_order")
+	private Integer displayOrder;
 
 	@CreationTimestamp
 	@Column(name = "created_at")

@@ -1,10 +1,13 @@
 package com.marwan.portfolio.service.admin;
 
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.dto.SkillRequest;
 import com.marwan.portfolio.entity.Skill;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.SkillRepository;
 import com.marwan.portfolio.service.CloudinaryService;
+import com.marwan.portfolio.service.ReorderService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,8 @@ public class AdminSkillService {
 	private final SkillRepository skillRepository;
 
 	private final CloudinaryService cloudinaryService;
+
+	private final ReorderService reorderService;
 
 	public Page<Skill> getAllSkills(Pageable pageable) {
 		return skillRepository.findAll(pageable);
@@ -54,6 +59,11 @@ public class AdminSkillService {
 	public void deleteSkill(Long id) {
 		Skill skill = getSkill(id);
 		skillRepository.delete(skill);
+	}
+
+	@CacheEvict(value = "skills", allEntries = true)
+	public void reorderSkills(List<ReorderRequest> items) {
+		reorderService.reorder(skillRepository, items);
 	}
 
 	private void mapRequest(Skill skill, SkillRequest request) {

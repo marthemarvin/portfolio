@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface CertificateRepository extends JpaRepository<Certificate, Long>, JpaSpecificationExecutor<Certificate> {
 
-	// newest certificate first
-	Page<Certificate> findByIsActiveTrueOrderByIssueDateDesc(Pageable pageable);
+	// in the order set by the reorder endpoint
+	Page<Certificate> findByIsActiveTrueOrderByDisplayOrderAsc(Pageable pageable);
 
 	Optional<Certificate> findByIdAndIsActiveTrue(Long id);
 

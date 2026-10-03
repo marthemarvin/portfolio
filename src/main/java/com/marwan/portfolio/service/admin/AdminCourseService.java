@@ -1,10 +1,13 @@
 package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.CourseRequest;
+import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.Course;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.CourseRepository;
 import com.marwan.portfolio.service.CloudinaryService;
+import com.marwan.portfolio.service.ReorderService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,8 @@ public class AdminCourseService {
 	private final CourseRepository courseRepository;
 
 	private final CloudinaryService cloudinaryService;
+
+	private final ReorderService reorderService;
 
 	public Page<Course> getAllCourses(Pageable pageable) {
 		return courseRepository.findAll(pageable);
@@ -54,6 +59,11 @@ public class AdminCourseService {
 	public void deleteCourse(Long id) {
 		Course course = getCourse(id);
 		courseRepository.delete(course);
+	}
+
+	@CacheEvict(value = "courses", allEntries = true)
+	public void reorderCourses(List<ReorderRequest> items) {
+		reorderService.reorder(courseRepository, items);
 	}
 
 	private void mapRequest(Course course, CourseRequest request) {

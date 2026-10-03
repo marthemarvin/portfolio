@@ -15,7 +15,7 @@ import java.time.Instant;
 @Data
 @Entity
 @Table(name = "skills")
-public class Skill {
+public class Skill implements Positionable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

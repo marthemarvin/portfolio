@@ -5,6 +5,7 @@ public record AboutRequest(
 		String headline,
 		String bio,
 		String image,
+		String projectDescription,
 		// base64 data uri, uploaded to cloudinary when sent, otherwise image is kept
 		String imageBase64,
 		String location,

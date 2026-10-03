@@ -40,6 +40,9 @@ public class About implements Positionable{
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "projectDescription")
+	private String projectDescription;
+
 	@Column(name = "resume_link")
 	private String resumeLink;
 
@@ -59,5 +62,6 @@ public class About implements Positionable{
 	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private Instant updatedAt;
+
 
 }

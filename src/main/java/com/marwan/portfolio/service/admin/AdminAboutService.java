@@ -57,6 +57,7 @@ public class AdminAboutService {
 		about.setResumeLink(request.resumeLink());
 		about.setGithubLink(request.githubLink());
 		about.setLinkedinLink(request.linkedinLink());
+		about.setProjectDescription(request.projectDescription());
 	}
 
 	@CacheEvict(value = "about", allEntries = true)

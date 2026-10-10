@@ -11,7 +11,7 @@ public class CorsConfig implements WebMvcConfigurer {
 	// Spring Framework creates and passes the CorsRegistry object.
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-				.allowedOrigins("https://marwankw.com", "http://localhost:4200")
+				.allowedOrigins("https://marwankw.com", "https://www.marwankw.com", "http://localhost:4200")
 				.allowedMethods("GET", "POST", "PUT", "DELETE");
 	}
 

@@ -49,7 +49,7 @@ Code is organised by layer under `com.marwan.portfolio`. New classes go in the m
 - **Contact form**: `POST /api/contact` is public (`permitAll` in `SecurityConfig`) and validated with Bean Validation (`@Valid` + annotations on `ContactMessageRequest`). `ContactService.buildEmailRecord` saves the message, then emails it via Gmail SMTP (`spring.mail.*`) to `MAIL_USERNAME` with Reply-To set to the visitor. A failed email is logged, not returned as an error. The mail credentials are set once in `application.yaml` as `${MAIL_USERNAME:}`/`${MAIL_PASSWORD:}` (empty default, all profiles), so a missing value never stops startup — sending just logs a warning until they're set.
 - **Auth**: single-admin model, no user table. `POST /api/auth/login` (`AuthController` → `AuthService`) compares credentials against `admin.email`/`admin.password` config and returns a raw HS256 JWT string (1h expiry) signed with `jwt.secret` (must be ≥32 chars). `SecurityConfig` wires the same secret into both the `JwtEncoder` and the OAuth2 resource-server `JwtDecoder`, so clients send it as `Authorization: Bearer <token>`. Any validly signed, unexpired token is accepted — there are no roles/scopes.
 - **Access rules** (`SecurityConfig`): everything under `/api/admin/**` requires a valid JWT (any method); outside that, `GET` and login are public and other methods require a JWT. CSRF is disabled.
-- **CORS** is configured in `CorsConfig` (allowed origins: `https://marwankw.com`, `http://localhost:4200`). Add origins there, not in `SecurityConfig`.
+- **CORS** is configured in `CorsConfig` (allowed origins: `https://marwankw.com`, `https://www.marwankw.com`, `http://localhost:4200`). Add origins there, not in `SecurityConfig`.
 
 ## Conventions for new endpoints
 

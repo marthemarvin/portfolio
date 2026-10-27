@@ -28,11 +28,14 @@ spring:
 management:
   endpoint:
     heapdump:
-      access: unrestricted
+      access: none
+    shutdown:
+      access: none
   endpoints:
     web:
       exposure:
-        include: health,prometheu,auditevents,beans,caches,conditions,configprops,env,flyway,heapdump,httptrace,info,integrationgraph,jolokia,liquibase,logfile,loggers,mappings,metrics,refresh,restart,scheduledtasks,sessions,shutdown,threaddump,hystrix.stream,features,archaius
+        include: health
+        exclude: auditevents,beans,caches,conditions,configprops,env,flyway,heapdump,info,integrationgraph,liquibase,logfile,loggers,mappings,metrics,prometheus,scheduledtasks,sessions,shutdown,threaddump
       base-path: /
 # cloudinary://<api_key>:<api_secret>@<cloud_name>, from the Cloudinary dashboard
 cloudinary:

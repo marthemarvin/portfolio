@@ -25,7 +25,12 @@ spring:
     caffeine:
       spec: maximumSize=200,expireAfterWrite=2h
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheu,auditevents,beans,caches,conditions,configprops,env,flyway,heapdump,httptrace,info,integrationgraph,jolokia,liquibase,logfile,loggers,mappings,metrics,refresh,restart,scheduledtasks,sessions,shutdown,threaddump,hystrix.stream,features,archaius
+      base-path: /
 # cloudinary://<api_key>:<api_secret>@<cloud_name>, from the Cloudinary dashboard
 cloudinary:
   url: ${CLOUDINARY_URL:}

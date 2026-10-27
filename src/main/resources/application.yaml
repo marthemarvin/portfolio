@@ -26,6 +26,9 @@ spring:
       spec: maximumSize=200,expireAfterWrite=2h
 
 management:
+  endpoint:
+    heapdump:
+      access: unrestricted
   endpoints:
     web:
       exposure:

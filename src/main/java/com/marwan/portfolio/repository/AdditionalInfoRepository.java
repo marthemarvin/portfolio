@@ -10,4 +10,7 @@ public interface AdditionalInfoRepository extends JpaRepository<AdditionalInfo, 
 	// in the order set by the reorder endpoint
 	List<AdditionalInfo> findByIsActiveTrueOrderByDisplayOrderAsc();
 
+	// admin list, hidden ones included
+	List<AdditionalInfo> findAllByOrderByDisplayOrderAscIdAsc();
+
 }

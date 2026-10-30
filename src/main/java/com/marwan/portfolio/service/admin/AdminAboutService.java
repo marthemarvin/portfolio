@@ -1,10 +1,13 @@
 package com.marwan.portfolio.service.admin;
 
 import com.marwan.portfolio.dto.AboutRequest;
+import com.marwan.portfolio.dto.AdditionalInfoRequest;
 import com.marwan.portfolio.dto.ReorderRequest;
 import com.marwan.portfolio.entity.About;
+import com.marwan.portfolio.entity.AdditionalInfo;
 import com.marwan.portfolio.exception.ApiException;
 import com.marwan.portfolio.repository.AboutRepository;
+import com.marwan.portfolio.repository.AdditionalInfoRepository;
 import com.marwan.portfolio.service.CloudinaryService;
 import com.marwan.portfolio.service.ReorderService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.Optional;
 public class AdminAboutService {
 
 	private final AboutRepository aboutRepository;
+	private final AdditionalInfoRepository additionalInfoRepository;
 	private final CloudinaryService cloudinaryService;
 	private final ReorderService reorderService;
 
@@ -65,4 +69,52 @@ public class AdminAboutService {
 		reorderService.reorder(aboutRepository,incomingReordering);
 
     }
+
+	// additional info is returned with the public about, so changes evict the about cache
+
+	public List<AdditionalInfo> getAllAdditionalInfo() {
+		return additionalInfoRepository.findAllByOrderByDisplayOrderAscIdAsc();
+	}
+
+	public AdditionalInfo getAdditionalInfo(Long id) {
+		Optional<AdditionalInfo> additionalInfo = additionalInfoRepository.findById(id);
+
+		if (additionalInfo.isEmpty()) {
+			throw new ApiException(HttpStatus.NOT_FOUND, "Additional info not found");
+		}
+
+		return additionalInfo.get();
+	}
+
+	@CacheEvict(value = "about", allEntries = true)
+	public AdditionalInfo createAdditionalInfo(AdditionalInfoRequest request) {
+		AdditionalInfo additionalInfo = new AdditionalInfo();
+		mapAdditionalInfoRequest(additionalInfo, request);
+		return additionalInfoRepository.save(additionalInfo);
+	}
+
+	@CacheEvict(value = "about", allEntries = true)
+	public AdditionalInfo updateAdditionalInfo(Long id, AdditionalInfoRequest request) {
+		AdditionalInfo additionalInfo = getAdditionalInfo(id);
+		mapAdditionalInfoRequest(additionalInfo, request);
+		return additionalInfoRepository.save(additionalInfo);
+	}
+
+	@CacheEvict(value = "about", allEntries = true)
+	public void deleteAdditionalInfo(Long id) {
+		AdditionalInfo additionalInfo = getAdditionalInfo(id);
+		additionalInfoRepository.delete(additionalInfo);
+	}
+
+	@CacheEvict(value = "about", allEntries = true)
+	public void reorderAdditionalInfo(List<ReorderRequest> items) {
+		reorderService.reorder(additionalInfoRepository, items);
+	}
+
+	private void mapAdditionalInfoRequest(AdditionalInfo additionalInfo, AdditionalInfoRequest request) {
+		additionalInfo.setTitle(request.title());
+		additionalInfo.setDescription(request.description());
+		additionalInfo.setImage(cloudinaryService.uploadImageOrKeep(request.imageBase64(), request.image()));
+		additionalInfo.setIsActive(request.isActive());
+	}
 }

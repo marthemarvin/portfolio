@@ -1,6 +1,6 @@
 package com.marwan.portfolio.controller.client;
 
-import com.marwan.portfolio.entity.About;
+import com.marwan.portfolio.dto.AboutResponse;
 import com.marwan.portfolio.service.client.AboutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ public class AboutController {
 	private final AboutService aboutService;
 
 	@GetMapping
-	public About getAbout() {
+	public AboutResponse getAbout() {
 		return aboutService.getAbout();
 	}
 
